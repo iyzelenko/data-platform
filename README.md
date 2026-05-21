@@ -9,9 +9,9 @@
 - ETL orchestration
 - streaming processing
 - data validation
-- feature store
 - monitoring
 - lakehouse architecture
+- semantic layer
 - infrastructure as code
 
 ---
@@ -24,11 +24,13 @@
 | Streaming | Apache Kafka |
 | Processing | Pandas / PySpark |
 | Storage | MinIO |
+| OLAP Database | ClickHouse |
 | Lakehouse | Bronze / Silver / Gold |
 | Validation | Great Expectations |
-| Feature Store | Feast |
-| Monitoring | Grafana + ClickHouse |
-| Infrastructure | Docker + Terraform |
+| Monitoring | Grafana |
+| Dashboard | Streamlit |
+| Semantic Layer | Cube.js |
+| Infrastructure | Docker |
 | CI/CD | GitHub Actions |
 
 ---
@@ -48,16 +50,20 @@ Apache Airflow orchestrates ETL pipelines and schedules workflows.
 - Streaming consumer processing
 
 ## Storage Layer
+
 Lakehouse architecture:
-- Bronze layer
-- Silver layer
-- Gold layer
+- Bronze layer — raw data
+- Silver layer — cleaned data
+- Gold layer — aggregated analytics
 
-## Feature Engineering
-Feast Feature Store stores ML-ready features.
+## Monitoring Layer
+Grafana dashboards connected to ClickHouse for analytics and monitoring.
 
-## Monitoring
-Grafana dashboards connected to ClickHouse.
+## Dashboard Layer
+Interactive Streamlit dashboards for analytics visualization.
+
+## Semantic Layer
+Cube.js provides semantic modeling for analytics queries.
 
 ---
 
@@ -69,12 +75,15 @@ data/                  Source data
 bronze/                Raw layer
 silver/                Cleaned layer
 gold/                  Aggregated layer
-feature_repo/          Feast feature store
+cube/schema/           Cube.js semantic models
+tests/                 Unit tests
+.github/workflows/    CI/CD pipelines
+
 producer.py            Kafka producer
 consumer.py            Kafka consumer
 validate.py            Great Expectations validation
 spark_job.py           Spark transformations
-main.tf                Terraform IaC
+app.py                 Streamlit dashboard
 docker-compose.yml     Infrastructure services
 Running The Project
 Start infrastructure
@@ -85,21 +94,45 @@ Run Kafka producer
 python producer.py
 Run Kafka consumer
 python consumer.py
+Run Streamlit dashboard
+streamlit run app.py
 Features
-ETL orchestration
-Streaming pipeline
+ETL orchestration with Airflow
+Streaming pipeline with Kafka
 Lakehouse architecture
 Data quality validation
-Feature store
+Telegram failure notifications
 Monitoring dashboards
+Streamlit analytics dashboard
+Cube.js semantic layer
 Infrastructure as Code
 Containerized deployment
+CI/CD with GitHub Actions
+Monitoring & Analytics
+Grafana
+operational dashboards
+ClickHouse integration
+metrics visualization
+Streamlit
+interactive analytics dashboard
+faculty filtering
+average grade analytics
+visual charts
+CI/CD
+
+GitHub Actions pipeline includes:
+
+automated testing
+code validation
+deployment workflow preparation
 Future Improvements
 Kubernetes deployment
-Real cloud storage
-ML model serving
-Advanced Grafana dashboards
+Cloud object storage
+Advanced Spark jobs
+Real-time analytics
 dbt transformations
+ML model serving
+Production monitoring stack
 Author
 
 Irina Zelenko
