@@ -21,6 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pytest pandas great-expectations
+          pip install feast
 
       - name: Run tests
         run: |
