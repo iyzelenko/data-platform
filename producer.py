@@ -1,29 +1,21 @@
 from kafka import KafkaProducer
 import json
 import time
-import random
 
 producer = KafkaProducer(
     bootstrap_servers='localhost:9092',
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
-events = [
-    "student_login",
-    "assignment_submitted",
-    "entered_classroom"
+students = [
+    {"student": "Alice", "faculty": "IT", "grade": 90},
+    {"student": "Bob", "faculty": "IT", "grade": 86},
+    {"student": "Charlie", "faculty": "Math", "grade": 95},
 ]
 
-while True:
-
-    event = {
-        "student_id": random.randint(1,5),
-        "event": random.choice(events),
-        "timestamp": time.time()
-    }
-
-    producer.send("student_events", event)
-
-    print(event)
-
+for student in students:
+    producer.send("student-events", student)
+    print(f"Sent: {student}")
     time.sleep(2)
+
+producer.flush()
